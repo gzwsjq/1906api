@@ -23,6 +23,11 @@ Route::get('/phpinfo',function(){
 Route::prefix('/test')->group(function(){
     Route::get('/redis','TestController@testRedis');
     Route::get('/aaa','TestController@testaaa');
+    Route::get('/access','TestController@getAccessToken'); //获取用户accesstoken
+    Route::get('/curl','TestController@curl1'); //curl
+    Route::get('/curl2','TestController@curl2'); //curl
+    Route::get('/guzzle','TestController@guzzle1'); //guzzle
+    Route::get('/guzzle2','TestController@guzzle2'); //guzzle
 });
 
 //关于用户
