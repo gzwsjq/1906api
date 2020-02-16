@@ -28,6 +28,19 @@ Route::prefix('/test')->group(function(){
     Route::get('/curl2','TestController@curl2'); //curl
     Route::get('/guzzle','TestController@guzzle1'); //guzzle
     Route::get('/guzzle2','TestController@guzzle2'); //guzzle
+
+    Route::get('/get1','TestController@get1');  //处理get的请求接口
+    Route::post('/post1','TestController@post1');  //处理post的请求接口
+    Route::post('/post2','TestController@post2');  //处理post的请求接口
+    Route::post('/post3','TestController@post3');  //处理post的请求接口
+
+    Route::post('/upload','TestController@upload');  //处理post上传文件
+});
+
+Route::prefix('/guzzle')->group(function(){
+    Route::get('guzzle','TestController@guzzleGet');  //guzzle的get请求
+    Route::post('guzzle1','TestController@guzzlePost');  //guzzle的post请求
+    Route::post('guzzleUpload','TestController@guzzleUpload'); //文件上传 post形式
 });
 
 //关于用户

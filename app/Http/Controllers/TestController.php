@@ -161,4 +161,66 @@ class TestController extends Controller
 
 
     }
+
+
+    //处理get请求的接口
+    public function get1(){
+        echo "<pre>";print_r($_GET);echo "</pre>";
+    }
+
+    //处理post请求的接口
+    public function post1(){
+        echo '<hr>';
+        echo "我是开始 API";
+        echo"<pre>";print_r($_POST);echo "</pre>";
+        echo "我是结束 API";
+    }
+
+    public function post2(){
+        echo "<pre>";print_r($_POST);echo "</pre>";
+    }
+
+    public function post3(){
+        $data=file_get_contents("php://input");  //接收json或者xml字符串
+        echo $data;echo '<hr>';
+
+        $arr=json_decode($data,true);
+        echo "<pre>";print_r($arr);echo "</pre>";
+    }
+
+    //接收post 上传文件
+    public function upload(){
+        echo "<pre>";print_r($_POST);echo "</pre>";
+        echo "接收文件：";echo "<hr>";
+        echo "<pre>";print_r($_FILES);echo "</pre>";
+    }
+
+    //guzzle的get请求
+    public function guzzleGet(){
+        echo "接收到的数据：";echo "<hr>";
+        echo "<pre>";print_r($_GET);echo "</pre>";
+    }
+
+    //guzzle的post请求
+    public function guzzlePost(){
+        echo "<hr>";
+        echo "我是API的开始";echo "<br>";
+        echo "接收的数据：";echo "<br>";
+        echo "<pre>";print_r($_POST);echo "</pre>";
+        echo "我是API的结束";
+        echo "<hr>";
+    }
+
+
+    //文件上传
+    public function guzzleUpload(){
+        echo "<hr>";
+        echo "我是API的开始";echo "<br>";
+        echo "接收的数据是：";echo "<br>";
+        echo "<pre>";print_r($_POST);echo "</pre>";
+        echo "上传的文件是：";echo "<br>";
+        echo "<pre>";print_r($_FILES);echo "</pre>";
+        echo "我是API的结束";
+        echo "<hr>";
+    }
 }
