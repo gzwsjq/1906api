@@ -223,4 +223,9 @@ class TestController extends Controller
         echo "我是API的结束";
         echo "<hr>";
     }
+
+    //获取http头部信息
+    public function http(){
+        echo "<pre>";print_r($_SERVER);echo "</pre>";
+    }
 }
