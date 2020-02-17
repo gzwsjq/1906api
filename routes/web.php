@@ -35,7 +35,8 @@ Route::prefix('/test')->group(function(){
     Route::post('/post3','TestController@post3');  //处理post的请求接口
 
     Route::post('/upload','TestController@upload');  //处理post上传文件
-    Route::get('/getHttp','TestController@http');  //获取http头部消息
+    Route::get('/getHttp','TestController@http');  //获取当前完整的url地址
+    Route::get('/str','TestController@redisStr');  //获取当前完整的url地址
 });
 
 Route::prefix('/guzzle')->group(function(){
@@ -54,5 +55,6 @@ Route::prefix('/api')->group(function(){
 //获取用户的pv uc ip等
 Route::prefix('/goods')->group(function(){
     Route::get('/goods','GoodsController@goods');
+    Route::get('/number','GoodsController@number');
 });
 

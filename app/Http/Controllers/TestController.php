@@ -224,8 +224,32 @@ class TestController extends Controller
         echo "<hr>";
     }
 
-    //获取http头部信息
+    //获取当前的完整的url地址
     public function http(){
+        $http=$_SERVER['REQUEST_SCHEME'];  //获取协议
+        //echo $http;echo '<br>';
+
+        $host=$_SERVER['HTTP_HOST'];//获取host
+        //echo $host;echo '<br>';
+
+        $uri=$_SERVER['REQUEST_URI'];//获取资源路径
+        //echo $uri;echo '<br>';
+
+        //完整的路径
+        $url=$http.'://'.$host.$uri;
+        echo "当前url:".$url;echo '<br>';
+
         echo "<pre>";print_r($_SERVER);echo "</pre>";
+    }
+
+    public function redisStr(){
+        $key='age';
+        $val='19';
+
+        //写入值
+        Redis::set($key,$val);//等价于 set name lisi
+
+        //设置过期时间
+        Redis::expire($key,300);
     }
 }
