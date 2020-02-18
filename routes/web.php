@@ -39,6 +39,8 @@ Route::prefix('/test')->group(function(){
     Route::get('/str','TestController@redisStr');  //获取当前完整的url地址
 
     Route::get('/redis/count1','TestController@count'); //访问量的操作
+    Route::get('/url1','TestController@url1'); //每个页面的限制访问
+    Route::get('/url2','TestController@url2'); //每个页面的限制访问
 });
 
 Route::prefix('/guzzle')->group(function(){
