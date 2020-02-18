@@ -349,4 +349,5 @@ class TestController extends Controller
 
         Redis::incr($key);//每刷一次接口数量加1
     }
+
 }

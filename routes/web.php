@@ -20,7 +20,7 @@ Route::get('/phpinfo',function(){
 });
 
 //test测试 路由分组
-Route::prefix('/test')->group(function(){
+Route::prefix('/test')->middleware('api.filt')->group(function(){
     Route::get('/redis','TestController@testRedis');
     Route::get('/aaa','TestController@testaaa');
     Route::get('/access','TestController@getAccessToken'); //获取用户accesstoken
