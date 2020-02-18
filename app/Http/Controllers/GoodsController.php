@@ -12,7 +12,21 @@ class GoodsController extends Controller
 {
     //获取用户的pv uv ip等
     public function goods(Request $request){
-        $goods_id=$request->get('id'); //获取商品id
+        $goodsinfo=GoodsModel::orderBy('id', 'desc')->limit(10)->get()->toArray();
+        //dd($datainfo);
+        $datanumber=count($goodsinfo);
+        //dd($datanumber);
+        if($datanumber>=10){
+            //dd($datainfo);
+            $datafirst=$goodsinfo[count($goodsinfo)-1];
+            $time=time()-strtotime($datafirst['created_at']);
+            //dump($time);
+            if($time<28860){
+                //dd($time);
+                echo "1分钟内访问不能大于10次";die;
+            }
+
+            $goods_id=$request->get('id'); //获取商品id
 
         $goods_key="str:goods:info:".$goods_id;
         echo 'redis_key:'.$goods_key; echo "<hr>";
@@ -56,23 +70,6 @@ class GoodsController extends Controller
 
         $uv=GoodsStatisticModel::where(['goods_id'=>$goods_id])->distinct('ua')->count('ua');
         echo "当前访客:".$uv;echo "<br>";
-
-    }
-
-    //限制页面的访问量
-    public function number(Request $request){
-        $goods_id=$request->get('id');//获取id
-
-        $user_info=PowerModel::where(['goods_id'=>$goods_id])->first();
-        print_r($user_info->toArray());
-
-        //访问量
-        Redis::setnx('num'.$goods_id,0);
-        Redis::incr('num'.$goods_id);
-        $num=Redis::get('num'.$goods_id);
-
-
-
 
     }
 }
