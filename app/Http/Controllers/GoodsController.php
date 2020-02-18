@@ -12,21 +12,7 @@ class GoodsController extends Controller
 {
     //获取用户的pv uv ip等
     public function goods(Request $request){
-        $goodsinfo=GoodsModel::orderBy('id', 'desc')->limit(10)->get()->toArray();
-        //dd($datainfo);
-        $datanumber=count($goodsinfo);
-        //dd($datanumber);
-        if($datanumber>=10){
-            //dd($datainfo);
-            $datafirst=$goodsinfo[count($goodsinfo)-1];
-            $time=time()-strtotime($datafirst['created_at']);
-            //dump($time);
-            if($time<28860){
-                //dd($time);
-                echo "1分钟内访问不能大于10次";die;
-            }
-
-            $goods_id=$request->get('id'); //获取商品id
+        $goods_id=$request->get('id'); //获取商品id
 
         $goods_key="str:goods:info:".$goods_id;
         echo 'redis_key:'.$goods_key; echo "<hr>";

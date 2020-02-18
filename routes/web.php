@@ -55,6 +55,5 @@ Route::prefix('/api')->group(function(){
 //获取用户的pv uc ip等
 Route::prefix('/goods')->group(function(){
     Route::get('/goods','GoodsController@goods');
-    Route::get('/number','GoodsController@number');
 });
 
