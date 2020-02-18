@@ -252,4 +252,38 @@ class TestController extends Controller
         //设置过期时间
         Redis::expire($key,300);
     }
+
+    //访问量
+    public function count(){
+        //使用ua辨别用户
+        $ua=$_SERVER['HTTP_USER_AGENT'];
+        $u=md5($ua); //加密让ua变短
+        $u=substr($u,6,6); //截取其中一段
+
+//        //给用户设置过期时间
+//        $time=Redis::expire($u,60);
+//        if($time==0){
+//            $num=0;
+//        }
+        //允许访问次数
+        $count=env('API_COUNT_NUMBER');
+        // echo $count;die;
+
+        //判断访问次数是否已到上限
+        $key=$u.'count';
+        $number=Redis::get($key);
+        echo "现访问次数:".$number;
+        echo "<br>";
+
+        if($number>$count){
+            echo "接口访问受限,已超过访问次数";
+            die;
+        }
+
+        //已访问次数
+        $num=Redis::incr($key);
+        echo $num;echo '<hr>';
+        echo "访问正常";
+
+    }
 }

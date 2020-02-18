@@ -37,6 +37,8 @@ Route::prefix('/test')->group(function(){
     Route::post('/upload','TestController@upload');  //处理post上传文件
     Route::get('/getHttp','TestController@http');  //获取当前完整的url地址
     Route::get('/str','TestController@redisStr');  //获取当前完整的url地址
+
+    Route::get('/redis/count1','TestController@count'); //访问量的操作
 });
 
 Route::prefix('/guzzle')->group(function(){
