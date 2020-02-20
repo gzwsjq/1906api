@@ -56,6 +56,8 @@ Route::prefix('/guzzle')->group(function(){
 Route::prefix('/api')->group(function(){
     Route::get('/info','Api\UserController@userInfo');  //用户信息
     Route::post('/reg','Api\UserController@reg');  //用户注册
+
+    Route::get('/weather','Api\UserController@weather'); //获取天气
 });
 
 
