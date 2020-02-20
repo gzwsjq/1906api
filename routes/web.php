@@ -20,7 +20,7 @@ Route::get('/phpinfo',function(){
 });
 
 //test测试 路由分组
-Route::prefix('/test')->middleware('api.filt')->group(function(){
+Route::prefix('/test')->group(function(){   //中间件 ->middleware('api.filt')
     Route::get('/redis','TestController@testRedis');
     Route::get('/aaa','TestController@testaaa');
     Route::get('/access','TestController@getAccessToken'); //获取用户accesstoken
@@ -41,6 +41,9 @@ Route::prefix('/test')->middleware('api.filt')->group(function(){
     Route::get('/redis/count1','TestController@count'); //访问量的操作
     Route::get('/url1','TestController@url1'); //每个页面的限制访问
     Route::get('/url2','TestController@url2'); //每个页面的限制访问
+
+    Route::get('/md1','TestController@md5Send'); //发送端
+    Route::get('/md2','TestController@md5Request'); //接收端
 });
 
 Route::prefix('/guzzle')->group(function(){

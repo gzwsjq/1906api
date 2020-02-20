@@ -350,4 +350,39 @@ class TestController extends Controller
         Redis::incr($key);//每刷一次接口数量加1
     }
 
+
+    //发送端-->发送数据(原始数据+签名)
+    public function md5Send(){
+        $key="1906";   //发送端和接收端的key相同
+
+        $str=$_GET['str']; //签名数据
+        echo "签名前的数据:".$str;echo "<br>";
+
+        //计算签名md5（原始数据+key）
+        $sign=md5($str.$key);
+        echo "计算的签名:".$sign;
+    }
+
+
+    //接收端--->接收数据（验证签名）
+    public function md5Request(){
+       $key="1906";    //接收端和发送端的key相同
+
+        $data=$_GET['data'];  //接收的数据
+        $sign=$_GET['sign'];  //接收的签名
+
+        //验证签名 前提：需要与发送端使用相同的规则
+        $sign2=md5($data.$key);
+        echo "接收端计算的签名:".$sign2;
+        echo "<br>";echo "<br>";
+
+        //与接收到的签名对比
+        if($sign2==$sign){
+            echo "验证签名通过  数据完整";
+        }else{
+            echo "验证签名失败  数据损坏";
+        }
+
+    }
+
 }
