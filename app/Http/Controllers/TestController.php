@@ -385,4 +385,21 @@ class TestController extends Controller
 
     }
 
+    //解密
+    public function decrypt(){
+        $data=$_GET['data'];  //密文
+
+        //解密
+        $length=strlen($data); //获取密文的字符串长度
+
+        $str='';
+        for($i=0;$i<$length;$i++){
+            echo  $data[$i].'--'.ord($data[$i]);echo "<br>";
+            $code=ord($data[$i])-1;
+
+            echo "解密:".$data[$i].'--'.chr($code);echo "<br>";
+            $str.=chr($code);
+        }
+        echo "解密数据:".$str;
+    }
 }

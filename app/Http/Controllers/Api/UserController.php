@@ -44,7 +44,7 @@ class UserController extends Controller
         if(empty($_GET['location'])){
             echo "请输入你所在的地理位置";die;
         }
-        
+
         $location=$_GET['location']; //城市
 
         $url="https://free-api.heweather.net/s6/weather?location=".$location."&key=42642076daa54aec8087c116c90e4761";
