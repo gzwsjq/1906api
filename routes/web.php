@@ -46,6 +46,9 @@ Route::prefix('/test')->group(function(){   //中间件 ->middleware('api.filt')
     Route::get('/md2','TestController@md5Request'); //接收端
 
     Route::get('/decrypt','TestController@decrypt');//解密
+    Route::get('/decrypt1','TestController@decrypt1');//对称解密
+
+    Route::get('/decr','TestController@decr'); //数据加密+签名
 });
 
 Route::prefix('/guzzle')->group(function(){
