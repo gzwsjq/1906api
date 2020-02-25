@@ -71,3 +71,13 @@ Route::prefix('/goods')->group(function(){
     Route::get('/goods','GoodsController@goods');
 });
 
+//非对称解密
+Route::get('/rdecr','TestController@rdecr');
+Route::get('/verify','TestController@rsaVerify');//非对称加密验证签名
+
+
+//支付宝接口调用
+Route::prefix('/alipay')->group(function(){
+    Route::get('/alipay','ApiController@test');
+});
+

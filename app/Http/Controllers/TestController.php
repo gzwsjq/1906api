@@ -458,4 +458,69 @@ class TestController extends Controller
         $arr=openssl_decrypt($b_data,$method,$key,OPENSSL_RAW_DATA,$iv); //解密
         var_dump($arr);
     }
+
+
+    //非对称解密
+    public function rdecr(){
+
+         //echo "<pre>";print_r($_GET);echo "</pre>";
+
+
+         $b_data=base64_decode($_GET['data']);  //base64解码
+         //var_dump($b_data);echo "<br>";
+
+        $priv=file_get_contents(storage_path('keys/priv.key'));
+        openssl_private_decrypt($b_data,$de_data,$priv);
+    
+        //echo "<br>";echo "<hr>";echo "<br>";
+
+        //响应的数据
+        $str="hello";
+
+        //公钥
+        $key=file_get_contents(storage_path('keys/pubb.key'));
+
+        //加密
+        openssl_public_encrypt($str,$en_str,$key);
+        //echo "响应的数据:".$en_str; echo "<hr>";die;
+
+        //base64编码
+        $ben_str=base64_encode($en_str);
+
+        //将数据响应回去
+        return $ben_str;
+
+    }
+
+
+    //使用非对称加密验证签名
+    public function rsaVerify(){
+        echo "<hr>";
+        echo "接收到的数据：";echo "<br>";
+        echo "<pre>";print_r($_GET);echo "</pre>";echo "<br>";
+
+        $data = $_GET['data'];
+        $sign = $_GET['sign'];
+        echo "接收的签名:".$sign;echo "<br>";
+
+        //将接收的数据中的签名进行base64解密
+        $base64_sign_str = base64_decode($sign);
+        echo "base64解密后的数据：".$base64_sign_str;echo "<br>";
+
+        //根据公钥生成key
+        $pub_key_id = openssl_pkey_get_public("file://".storage_path('keys/pubb.key'));
+        echo "生成的key：".$pub_key_id;echo "<hr>";
+
+        //验证签名
+        $result = openssl_verify($data,$base64_sign_str,$pub_key_id,OPENSSL_ALGO_SHA256);
+        if($result == 1){
+            echo "验签通过，数据完整";
+        }else if($result == 0){
+            echo "验签失败，数据损坏";
+        }else{
+            echo "ugly, error checking signature";
+        }
+
+        var_dump($result);
+    }
 }
